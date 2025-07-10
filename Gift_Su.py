@@ -6,10 +6,6 @@ se utilizara una rapsberry pi para reproducirlo en una pantalla de 3.5 pulgadas.
 El codigo se ejecutara en un bucle infinito, mostrando cada imagen durante 6 segundos y reproduciendo cada video hasta que se presione 's'.
 '''
 import os, cv2, time
-
-import os
-import cv2
-import time
 import subprocess
 
 # --- Detectar resolución de pantalla ---
@@ -25,23 +21,19 @@ def obtener_resolucion_pantalla():
         print(" No se pudo detectar la resolución automáticamente:", e)
         return (480, 320)
 
-# --- Rutas (ajústalas para tu Raspberry Pi) ---
 Url_carpeta = 'C:\\Users\\RRAIGOSA\\Pictures\\Placas test'  #aqui cambia la ruta donde estan las imagenes y videos
 url_Meses = 'C:\\Users\\RRAIGOSA\\Pictures\\Fondos de pantalla puestos\\wallhaven-gjjrml.png' 
-
 
 Tipo_imagen = ('.jpg', '.jpeg', '.png', '.bmp', '.gif')
 Tipo_video = ('.mp4', '.avi', '.mov', '.mkv')
 
-# --- Resolución de pantalla ---
 RESOLUCION_PANTALLA = obtener_resolucion_pantalla()
 print(f"🖥️ Resolución detectada: {RESOLUCION_PANTALLA}")
 
-# Crear ventana pantalla completa una sola vez
+# Crear ventana pantalla completa 
 cv2.namedWindow('Visor multimedia', cv2.WINDOW_FULLSCREEN)
 cv2.setWindowProperty('Visor multimedia', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
-# --- Funciones de reproducción ---
 def Play_imainicio(ruta_logo):
     if not os.path.exists(ruta_logo):
         print(' No se encontró la imagen de inicio')
@@ -81,15 +73,12 @@ def Play_video(ruta):
             break
     video.release()
 
-# --- Verifica carpeta ---
 if not os.path.isdir(Url_carpeta):
     print(f' La carpeta no existe: {Url_carpeta}')
     exit()
 
-# --- Imagen de inicio ---
 Play_imainicio(url_Meses)
 
-# --- Bucle infinito ---
 while True:
     archivos = sorted(os.listdir(Url_carpeta))
     for archivo in archivos:
